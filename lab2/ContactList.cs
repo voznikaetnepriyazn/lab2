@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using lab2;
 
 namespace lab2
 {
-    public delegate string ForFio();
-    //ForFio name = new ForFio(); создаю экземпляр делегата для передачи в метод ByAlph - ругается
-    public class ContactList: List<Contact>
+    //public delegate string ForFio();
+    //ForFio ffio = new ForFio(Fio);
+    
+    public class ContactList:List<Contact>, IComparable
     {
-        
-        
-        
-        public void ByAlph()
+        public int CompareTo(object obj)
         {
-            ///sort by alphabit ??? можно ли как то реализовать метод без делегата? или как правильно вызвать делегат с ссылкой на метод Fio??
-            ///планировала сделать чтото типо Sort.экземпляр ForFio
-            
+            if (obj is Contact contacts) return this.CompareTo(contacts.surname);
+            else throw new ArgumentException();
+        }
+        public void ByAlph()
+        { 
+            this.Sort((f1,f2)=> f1.surname.CompareTo(f2.surname));
         }
         public void GetContact()
         {
@@ -27,10 +29,5 @@ namespace lab2
                 Console.WriteLine(contact);
             }
         }
-        /*public void GetContact() => правильно ли вообще написана эта функция через лямбду выражение???
-         * {
-         *     Console.WriteLine(foreach (var contact in this))
-         * }
-         */ 
-    }
+        
 }

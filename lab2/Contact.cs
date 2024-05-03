@@ -14,15 +14,19 @@ namespace lab2
         public string thirdName;
         public string telNum; 
 
-        //нужен ли вообще тут конструктор контакт??
-
+        
         public Contact(string surname, string name, string thirdName, string telNum)
         {
-            surname=this.surname;
-            name=this.name; 
-            thirdName=this.thirdName;
-            telNum=this.telNum;
+            this.surname = surname ?? throw new ArgumentNullException(nameof(surname));
+            this.name = name ?? throw new ArgumentNullException(nameof(surname));
+            this.thirdName = thirdName ?? throw new ArgumentNullException(nameof(surname));
+            this.telNum = telNum ?? throw new ArgumentNullException(nameof(surname));
         }
+
+        public Contact()
+        {
+        }
+
         public override string ToString()
         {
             return $"{name}: {telNum}";
